@@ -149,10 +149,22 @@ if (contactForm) {
         const message = document.getElementById('message').value;
         
         // Simular envio (aqui você pode adicionar integração real)
-        alert(`Obrigado ${name}! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.`);
+        // Mostrar mensagem de sucesso
+        const successMessage = document.createElement('div');
+        successMessage.className = 'success-message';
+        successMessage.textContent = `Obrigado ${name}! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.`;
+        successMessage.style.cssText = 'background-color: #10b981; color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; animation: fadeIn 0.3s ease;';
+        
+        contactForm.insertBefore(successMessage, contactForm.firstChild);
         
         // Limpar formulário
         contactForm.reset();
+        
+        // Remover mensagem após 5 segundos
+        setTimeout(() => {
+            successMessage.style.animation = 'fadeOut 0.3s ease';
+            setTimeout(() => successMessage.remove(), 300);
+        }, 5000);
     });
 }
 
@@ -181,17 +193,7 @@ const highlightNavLink = () => {
 
 window.addEventListener('scroll', highlightNavLink);
 
-// Adicionar estilo para link ativo
-const style = document.createElement('style');
-style.textContent = `
-    .nav-link.active {
-        color: var(--primary-color);
-    }
-    .nav-link.active::after {
-        width: 100%;
-    }
-`;
-document.head.appendChild(style);
+
 
 // Prevenção de scroll horizontal em mobile
 document.addEventListener('DOMContentLoaded', () => {
